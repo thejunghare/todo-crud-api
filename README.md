@@ -12,7 +12,7 @@ This project implements a simple CRUD (Create, Read, Update, Delete) API for man
 
 ```
    git clone https://github.com/your-username/todo-crud-api.git
-   cd movie-crud-api
+   cd todo-crud-api
 ```
 
 2. Install dependencies:
@@ -31,39 +31,39 @@ The server should now be running at http://localhost:8080.
 
 # Endpoints
 
-## Get All Movies
+## Get All Todo
 
 - URL: /todos
 - Method: GET
 - Response: List of all Todos in JSON format.
 
-## Get a Single Movie
+## Get a Single Todo
 
 - URL: /todo/{id}
 - Method: GET
 - Response: Todo with the specified ID in JSON format.
 
-## Create a New Movie
+## Create a New Todo
 
 - URL: /create
 - Method: POST
 - Request Body: todo data in JSON format (ID, Title).
 - Response: Newly created Todo in JSON format.
 
-## Update a Movie
+## Update a Todo
 
 - URL: /update/{id}
 - Method: PUT
 - Request Body: Updated todo data in JSON format (ID, Title).
 - Response: Updated todo in JSON format.
 
-## Delete a Movie
+## Delete a Todo
 
 - URL: /delete/{id}
 - Method: DELETE
 - Response: Deleted todo in JSON format.
 
-## Movie Structure
+## Todo Structure
 
 A todo is represented by the following JSON structure:
 
