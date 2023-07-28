@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -49,7 +50,6 @@ func getTodo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, todo)
 }
 
-
 // Helper function
 func getTodoByID(id string) (*Todo, error) {
 	for key, val := range todo {
@@ -61,11 +61,22 @@ func getTodoByID(id string) (*Todo, error) {
 	return nil, errors.New("Todo not found")
 }
 
-
 // Create todo
-func createTodo(c *gin.Context){
-	
+func createTodo(c *gin.Context) {
+	var create Todo
+
+	// Parse the struct
+	err := json.NewDecoder(c.Request.Body).Decode(&create)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// add todo
+	todo = append(todo, create)
+	c.IndentedJSON(http.StatusCreated, todo)
 }
+
+
 
 func main() {
 	fmt.Println("todo crud api")
@@ -83,6 +94,8 @@ func main() {
 	r.GET("/todos", getTodos)
 	// Get Todo by ID
 	r.GET("/todo/:id", getTodo)
+	// Create Todo
+	r.PUT("/create", createTodo)
 
 	//listen and serve
 	r.Run()
