@@ -22,7 +22,7 @@ func HomeHandler(c *gin.Context) {
 
 // Display all todo
 func getTodos(c *gin.Context) {
-<<<<<<< HEAD
+
 	/*
 		//	set content-type header to application header
 		c.Header("Content-Type", "application/json")
@@ -35,16 +35,6 @@ func getTodos(c *gin.Context) {
 	*/
 
 	c.IndentedJSON(http.StatusOK, todo)
-=======
-	//	set content-type header to application header
-	c.Header("Content-Type", "application/json")
-
-	//	Display all todos
-	err := json.NewEncoder(c.Writer).Encode(todo)
-	if err != nil {
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
->>>>>>> e25175930e238f4278f886b7cc762d364b6e2f2d
 }
 
 // Display todo by id
@@ -59,10 +49,8 @@ func getTodo(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, todo)
 }
 
-<<<<<<< HEAD
+
 // Helper function
-=======
->>>>>>> e25175930e238f4278f886b7cc762d364b6e2f2d
 func getTodoByID(id string) (*Todo, error) {
 	for key, val := range todo {
 		if val.ID == id {
@@ -72,14 +60,12 @@ func getTodoByID(id string) (*Todo, error) {
 
 	return nil, errors.New("Todo not found")
 }
-<<<<<<< HEAD
+
 
 // Create todo
 func createTodo(c *gin.Context){
 	
 }
-=======
->>>>>>> e25175930e238f4278f886b7cc762d364b6e2f2d
 
 func main() {
 	fmt.Println("todo crud api")
