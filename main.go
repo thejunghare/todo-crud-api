@@ -76,6 +76,37 @@ func createTodo(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, todo)
 }
 
+// update by id
+func updateTodo(c *gin.Context) {
+	var update Todo
+	id := c.Param("id")
+
+	// Find the index of the todo with the specified ID
+	index := -1
+	for i, t := range todo {
+		if t.ID == id {
+			index = i
+			break
+		}
+	}
+
+	if index == -1 {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Todo does not exist"})
+		return // Exit the function early if the todo is not found
+	}
+
+	// Parse the request body to get the updated todo data
+	if err := c.ShouldBindJSON(&update); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid request body"})
+		return // Exit the function early if there's an error decoding the request body
+	}
+
+	// Update the todo data at the found index
+	todo[index].Title = update.Title
+
+	c.IndentedJSON(http.StatusOK, todo[index]) // Respond with the updated todo
+}
+
 // Delete by id
 func deleteTodo(c *gin.Context) {
 	id := c.Param("id")
@@ -112,6 +143,8 @@ func main() {
 	r.GET("/todo/:id", getTodo)
 	// Create Todo
 	r.PUT("/create", createTodo)
+	// Update Todo
+	r.PUT("/update/:id", updateTodo)
 	// Delete Todo
 	r.DELETE("/delete/:id", deleteTodo)
 
