@@ -1,68 +1,6 @@
 package main
 
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-)
-
-type Todo struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
-}
-
-var todo []Todo
-
-func HomeHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Todo crud api"})
-}
-
-// Display all todo
-func getTodos(c *gin.Context) {
-	/*
-		//	set content-type header to application header
-		c.Header("Content-Type", "application/json")
-
-		//	Display all todos
-		err := json.NewEncoder(c.Writer).Encode(todo)
-		if err != nil {
-			c.AbortWithStatus(http.StatusInternalServerError)
-		}
-	*/
-
-	c.IndentedJSON(http.StatusOK, todo)
-}
-
-// Display todo by id
-func getTodo(c *gin.Context) {
-	// Display by id
-	id := c.Param("id")
-	todo, err := getTodoByID(id)
-	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Todo does not exist"})
-	}
-
-	c.IndentedJSON(http.StatusOK, todo)
-}
-
-// Helper function
-func getTodoByID(id string) (*Todo, error) {
-	for key, val := range todo {
-		if val.ID == id {
-			return &todo[key], nil
-		}
-	}
-
-	return nil, errors.New("Todo not found")
-}
-
-// Create todo
-func createTodo(c *gin.Context){
-	
-}
+import "fmt"
 
 func main() {
 	fmt.Println("todo crud api")
