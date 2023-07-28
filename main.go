@@ -76,7 +76,23 @@ func createTodo(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, todo)
 }
 
+// Delete by id
+func deleteTodo(c *gin.Context) {
+	id := c.Param("id")
+	_, err := getTodoByID(id)
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Todo does not exist"})
+	}
 
+	for key, val := range todo {
+		if val.ID == id {
+			todo = append(todo[:key], todo[key+1:]...)
+			c.IndentedJSON(http.StatusOK, todo)
+			return
+		}
+	}
+
+}
 
 func main() {
 	fmt.Println("todo crud api")
@@ -96,6 +112,8 @@ func main() {
 	r.GET("/todo/:id", getTodo)
 	// Create Todo
 	r.PUT("/create", createTodo)
+	// Delete Todo
+	r.DELETE("/delete/:id", deleteTodo)
 
 	//listen and serve
 	r.Run()
