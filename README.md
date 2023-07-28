@@ -83,7 +83,7 @@ A todo is represented by the following JSON structure:
 GET /todos
 ```
 
-2. Get a Single Movie
+2. Get a Single Todo
 
 ```
 GET /todo/{id}
